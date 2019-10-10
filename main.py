@@ -73,11 +73,6 @@ def prepare_data_for_nn(data, num_class = -1):
 
 	train_data = data[filt]
 	test_data = data[~filt]
-	
-	# plt.plot(test_data['x1'], test_data['x2'], 'bo')
-	# plt.plot(train_data['x1'], train_data['x2'], 'go')
-	# plt.show()
-	# exit()
 	return  train_data[['x1', 'x3']].as_matrix(), list(train_data['x2']),  test_data[['x1', 'x3']].as_matrix(), list(test_data['x2'])
 
 def trainig_model(x_train, y_train, x_test, y_test, num_class):
@@ -89,14 +84,12 @@ def trainig_model(x_train, y_train, x_test, y_test, num_class):
 		
 		model.fit(x_train, y_train, batch_size = 5, epochs=200, verbose=1, validation_data=(x_test,y_test))
 		model.save_weights(f'weights_{num_class}.h5')
-	# model.fit(x_train, y_train, batch_size = 5, epochs=1, verbose=1, validation_data=(x_test,y_test))
+	
 	y_pred_train = model.predict(x_train)	
 	y_pred_test = model.predict(x_test)
 
-
 	from matplotlib.pyplot import figure
 	figure(num=None, figsize=(16, 6), dpi=80, facecolor='w', edgecolor='k')
-
 
 	plt.plot(x_train[:,0], y_train,  marker = '.', color = 'grey', markersize=8)
 	plt.plot(x_test[:,0], y_test,  marker = '.', color = 'grey', markersize=8)
@@ -163,19 +156,13 @@ if __name__ == '__main__':
 	xx = [gr for i in range(100)]
 	yy = np.linspace(-1.1, 1.1, 100)
 	
-	# # plt.figure(figsize=(15,6))
-	# ax.plot(data['x1'][~ix_filter], data['x2'][~ix_filter], marker = '.', color = 'gray',linestyle='dashed')
-	# ax.plot(data['x1'][ix_filter], data['x2'][ix_filter], marker = '.', color = 'black',linestyle='dashed')
-	# ax.plot(xx, yy, marker = '.', color = 'black', markersize=16)
-	# # ax.set_xlabel('x2')
-	# # ax.set_ylabel('x1')
 
-	# ax.set_xlabel('x2')
-	# ax.set_ylabel('x1')
-	
-	# plt.show()
-	# exit()
-
+	ax.plot(data['x1'][~ix_filter], data['x2'][~ix_filter], marker = '.', color = 'gray',linestyle='dashed')
+	ax.plot(data['x1'][ix_filter], data['x2'][ix_filter], marker = '.', color = 'black',linestyle='dashed')
+	ax.plot(xx, yy, marker = '.', color = 'black', markersize=16)
+	ax.set_xlabel('x2')
+	ax.set_ylabel('x1')	
+	plt.show()
 
 	# FIT = True
 	FIT = False
